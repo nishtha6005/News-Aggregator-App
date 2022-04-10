@@ -80,16 +80,12 @@ WSGI_APPLICATION = 'News.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME':'newsapp',
-        'USER':'postgres',
-        'PASSWORD':'nish6005',
-        'HOST':'127.0.0.1',
-        'PORT': '5432',
-        # 'NAME':env('DATABASE_NAME'),
-        # 'USER':env('DATABASE_USER'),
-        # 'PASSWORD':env('DATABASE_PASSWORD'),
-        # 'HOST':env('DATABASE_HOST'),
+        'ENGINE': 'django.db.backends.postgresql'
+        'NAME':env('DATABASE_NAME'),
+        'USER':env('DATABASE_USER'),
+        'PASSWORD':env('DATABASE_PASSWORD'),
+        'HOST':env('DATABASE_HOST'),
+        'PORT':env('DATABASE_PORT')
     }
 }
 
@@ -140,7 +136,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'newsapp.alert@gmail.com' 
-EMAIL_HOST_PASSWORD = 'news#123'
+EMAIL_HOST_USER = env('EMAIL_HOST_USER') 
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASS')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
