@@ -1,0 +1,39 @@
+.box-model {
+    box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+    border-radius: 4px;
+    padding: 20px;
+    margin: 35px 270px;
+    background-color:whitesmoke; 
+    width : 800px;
+    text-align:center;
+}
+
+.error {
+    text-align: left;
+    padding-left: 8px;
+    padding-top: 5px;
+}
+
+.navbar {
+    background-color: rgb(6,66,177);
+    color: white;
+    height:50px;
+}
+
+input[type=submit]:hover {
+    background-color: #39853c;
+}
+  
+input[type=reset]:hover {
+    background-color: #af3030;
+}
+
+input#select :hover {
+    background-color: #af3030;
+}
+
+h2{
+    color:white;
+    margin-left:10px;
+    font-weight: bold;
+}

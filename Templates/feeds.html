@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- BOOTSTRAP CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<!-- EXTERNAL CSS FILE-->
+    <link rel='stylesheet' href="{% static 'css/style.css' %}">
+ 
+    <title>{% block title %} Feeds {% endblock title %}</title>
+</head>
+<body>  
+    {% csrf_token %}
+    
+<!--  NAVBAR  -->
+<nav class="navbar navbar-expand-sm fixed-top" >
+    <h2>NewsApp</h2>
+    <div class='rt'>
+        {% if user.is_authenticated %}
+        <a href='logout'>Logout</a> 
+        {% else %}
+        <a href='login'>Login</a> |
+        <a href="registration">Sign Up</a>
+        {% endif %}
+    </div>
+</nav>
+
+<!-- SIDEBAR -->
+<div class='sidebar'>    
+    <br>
+    <b><a href="/">Top Stories</a></b>
+    {% if user.is_authenticated %}
+    <hr>
+    <b><a href="feeds">Feeds</a></b>
+    <hr>
+    <h4>News Sources</h4>
+    <a href="bbc-news">BBC News</a>
+    <a href="cbc-news">CBC News</a>
+    <a href="toi-news">The Times Of India</a>
+    <a href="techradar-news">TechRadar</a>
+    <a href="news24-news">News24</a>     
+    <br>
+    <hr>
+    <b><a href='subscribe-source'>Subscribe Source</a></b>
+    {% endif %}
+    <hr>
+    <h4>Category</h4>
+	<a href='health-news'>Health</a>
+    <a href="business-news">Business</a>
+    <a href="science-news"></i>Science</a>
+    <a href="sports-news">Sports</a>
+    <a href="technology-news">Technology</a>
+    <a href="entertainment-news">Entertainment</a><br>
+</div> 
+
+<!-- MAIN CONTENT -->
+<div style="margin-left:15%; ">    
+    <nav class="navbar navbar-expand-sm bg-light subscribe" >
+        <h6>Personal Feed</h6>
+    </nav>
+        
+<!-- NEWS ARTICLES -->
+    <div class='row'>
+        {% for i in articles %}   
+            <div class = "col-lg-4 ">
+                 <div class="card">
+                    <img src="{{i.urlToImage}}" class="card-img-top" alt="" >
+                    <div class="card-body">
+                        <p class="card-title">{{ i.source.name }}</p>
+                        <h5 class="card-title">{{ i.title }}</h5>
+                        <p class="card-text">{{ i.description }}</p><hr>
+                        <small>Date : {{ i.publishedAt}}</small><br><br>
+                        <a href="{{i.url}}" class="btn  btn-block btn-primary" target="_blank">View Full News</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

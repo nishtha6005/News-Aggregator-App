@@ -1,0 +1,105 @@
+.card {
+    width:370px;
+}
+
+.card-text {
+    text-align: justify;
+}
+
+.col-lg-4 {
+    margin-top: 60px;
+    padding-left: 30px;
+}
+
+.error {
+    text-align: left;
+    padding-left: 8px;
+    padding-top: 5px;
+}
+
+.navbar {
+    background-color: rgb(6, 66, 177);
+    box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+    height:50px;
+}
+
+.rt{
+    margin-left: 1000px;
+    color: white;
+}
+
+.rt a{
+    color: white;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.sidebar {
+    height: 98%;
+    margin-top: 2%;
+    width: 15%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 10px;
+    overflow-y: scroll;
+    background-color: white;
+    box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+}
+   
+.sidebar::-webkit-scrollbar {
+    display: none;
+}
+  
+.sidebar a {
+   padding: 6px 8px 6px 16px;
+   display: block;
+   font-size: 18px;
+   color:black;
+}
+  
+.sidebar a:hover {
+    background-color:grey;
+} 
+
+.subscribe{
+    height: 40px;
+    box-shadow: none;
+    margin-top:50px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 15%;
+    z-index: 1030;
+}
+
+h2{
+    color:white;
+    margin-left:10px;
+    font-weight: bold;
+}
+
+h4{
+    color:black;
+    margin-left:10px;
+    font-weight: bold;
+    margin-top:25px;
+}
+
+h6{
+    color:black;
+    font-size: 30px;
+    font-weight: bolder;
+    font-family :Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-left: 300px;
+    margin-right: 80px;
+}
+
+
+hr{
+    border : 1px solid black;
+    margin: 0px 7px;
+}
+

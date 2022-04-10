@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- BOOTSTRAP CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<!-- EXTERNAL CSS FILE-->
+    <link rel='stylesheet' href="{% static 'css/form.css' %}">
+
+    <title>Create Account</title>
+</head>
+<body>
+    <!--  NAVBAR  -->
+    <nav class="navbar navbar-expand-sm "><h2>NewsApp</h2></nav>
+
+    <div class ='box-model'>
+        <h2>Create Account</h2>
+        <a href="login">Already a user? Login</a><br><br>
+
+        <!-- ERROR MESSAGE -->
+        {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert" style="color:red" >
+                {{ message }}
+            </div>
+        {% endfor %}
+        <!-- ERROR MESSAGE END -->
+
+        <!-- REGISTRATION FORM  -->
+        <form action='registration' method="POST" >
+            <p style="text-align:left; font-weight:bold; font-size: small; color:rgb(47,79,79)" class='rules'>
+                1. Name should not contain blank spaces, digits or special characters.<br>
+                2. Password length should be between 8 - 20 characters.<br> 
+                3. Password must contain 1 upper-case letter, 1 lower-case letter, 1 digits and 1 special character.<br>
+            </p>
+        {% csrf_token %}
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter first name" id="firstname" name ='firstname'>
+                <p id='name_error' class='error'></p>
+            </div>  
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter last name" id="lastname" name ='lastname'>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="Enter email" id="mail" name='mail' >
+                <p id='mail_error' class='error'></p>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Enter password" id="password" name='password'>
+                <p id='password_error' class='error'></p>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Confirm password" id="password2" name='password2' >
+                <p id='password2_error' class='error'></p>
+            </div> 
+            <div class="form-group">
+                <input type="submit" class="btn btn-success btn-block " id='register' value="Sign UP">
+                <input type="reset" class="btn btn-danger btn-block " id='cancel' value="Cancel">
+                <p id='error'></p>
+            </div>
+        </form>
+        <!-- REGISTRATION FORM END  -->
+
+    </div>
+    
+<!-- JQUERY CDN -->
+ <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" 
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+    $(document).ready(function(){
+          
+        $('#register').click(function(){
+
+            $('form').submit(function(){
+                $('.error').hide();
+                
+        // FETCHING FORM FIELD VALUES
+                name = $('#firstname').val();
+                password = $('#password').val();
+                cpassword = $('#password2').val();
+                email = $('#mail').val();
+
+        // REGULAR EXPRESSIONS
+                name_regex =/^([a-zA-Z \t])+$/;
+                pass_regex =/^([a-zA-Z])+[0-9]+[\W]+/;
+		        email_regex = /^([a-zA-Z0-9\.-])+@([a-zA-Z0-9-])+\.([a-z]{2,8})$/;
+		
+        // NAME VALIDATION
+                if(name == '' || (!name_regex.test(name)))
+                {
+                    console.log(name)
+                    $('#name_error').show();
+                    $('#name_error').css('color','red');
+                    $('#name_error').text('Name cannot have blank spaces, digits or special symbols.');
+                    $('#firstname').val('');
+                    $('#lastname').val();
+                    $('#mail').val('');
+                    $('#password').val('');
+                //    $('#password2').val('');
+                    $('#firstname').focus();
+                    return false;
+                    
+                }
+        // EMAIL VALIDATION
+                else if(!email_regex.test(email))
+                {
+                    //console.log(email);
+                    $('#mail_error').show();
+                    $('#mail_error').css('color','red');
+                    $('#mail_error').text('Enter Valid Email');
+                    $('#mail').val('');
+                    $('#password').val('');
+                    $('#password2').val('');
+                    $('#mail').focus();
+                    return false;
+                }
+        // CHECKING PASSWORD LENGTH
+               else if( password.length < 7 || password.length > 20 ) 
+                {
+                    console.log(password);
+                    $('#password_error').show();
+                    $('#password_error').css('color','red');
+                    $('#password_error').text('Password length should be between 8 - 20 characters. Password must contain 1 upper-case letter, 1 lower-case letter, 1 digits and 1 special character.');
+                    $('#password').val('');
+                    $('#password2').val('');
+                    $('#password').focus();
+                    return false;
+                } 
+        // PASSWORD VALIDATION
+              else if(!pass_regex.test(password))
+                {
+                    console.log(password,cpassword);
+                    $('#password_error').show();
+                    $('#password_error').css('color','red');
+                    $('#password_error').text('Password length should be between 8 - 20 characters. Password must contain 1 upper-case letter, 1 lower-case letter, 1 digits and 1 special character. ');
+                    $('#password').val('');
+                    $('#password2').val('');
+                    $('#password').focus();
+                    return false;
+                }
+        // MATCHING PASSWORD AND CONFIRM PASSWORD FIELD VALUES 
+               else if(password != cpassword)
+                {
+                   console.log(cpassword);
+                    $('#password2_error').show();
+                    $('#password2_error').css('color','red');
+                    $('#password2_error').text('Password does not match.');
+                    $('#password').val('');
+                    $('#password2').val('');
+                   // $('#password').focus();
+                   console.log(cpassword);
+                    return false;
+                } 
+                else
+                {
+                    return true;
+                }	
+            });
+        });
+    });
+    </script>
+
+</body>
+</html>
